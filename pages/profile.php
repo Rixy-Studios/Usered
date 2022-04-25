@@ -163,7 +163,7 @@ if(empty($profile_user['discord_tag'])){
                     <br>
                     <? } ?>
                     <? if(!empty($reed['video_url'])){ ?>
-                    <video controls src="<?= $reed['video_url'] ?>" alt="Linked video" width="500px">
+                    <video controls src="<?= $reed['video_url'] ?>" alt="Linked video" width="500px"></video>
                     <br>
                     <br>
                     <? } ?>
