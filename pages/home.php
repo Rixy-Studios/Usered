@@ -42,7 +42,7 @@ $activity_feed = array();
             <br>
             <p>Usered development progress:</p>
             <br>
-            <progress class="yt-progress-bar" value="30" max="100">30%</progress>
+            <progress class="yt-progress-bar" value="35" max="100">35%</progress>
             <br>
             <a href="/news">Checkout latest updates</a>
             <br>
