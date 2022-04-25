@@ -103,6 +103,7 @@ if(empty($profile_user['discord_tag'])){
             <br>
             <br>
             <h1 class="bluetext"><?= $profile_user['username'] ?> <? if($user['id']==$profile_user['id']){ ?><a class="g-button g-button-red" href="/edit-profile">EDIT</a><? }else{ ?><form method="post"><input type="submit" name="submit" value="<? if($if_following){ echo "UNFOLLOW"; }else{ echo "FOLLOW"; } ?>" class="g-button g-button-red"> <? } ?></h1>
+            <? if($profile_user['perms']==1){ ?><p class="redtext"><b>This user is an administrator. Contact him if necessary.</b></p><? } ?>
             <?php 
             if(isset($_POST['submit']) && $user['id']!==$profile_user['id']){
                 if($if_following){

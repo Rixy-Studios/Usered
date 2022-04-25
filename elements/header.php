@@ -66,7 +66,7 @@ if($if_ban){
 <html>
 <head>
     <title><?php if(isset($title)){echo $title. " - Usered";}else{echo "Usered";} ?></title>
-    <!-- <link rel="stylesheet" href="css/yt-framework.css"> -->
+    <link rel="stylesheet" href="/css/yt-framework.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="/js/bootstrap-alert.js"></script>
@@ -96,6 +96,12 @@ if($if_ban){
 </style>
 </head>
 <body>
+ <div class="wrapper">
+  <ul class="yt-navigation-dark">
+      <li class="selected" onclick="window.location.href='/'">Usered</li>
+      <li onclick="window.location.href='https://pi.rixynet.webs.nf'">Riiset</li>
+      <li onclick="window.location.href='https://noted.webs.nf'">Noted</li>
+  </ul>
 <div class="google-header-bar">
     <div class="header content clearfix">
       <a href="/"><img class="logo" alt="Usered" src="/img/logo.png" height="50px"></a>

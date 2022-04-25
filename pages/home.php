@@ -39,6 +39,11 @@ $activity_feed = array();
         <div class="product-headers">
             <h1 class="bluetext">Welcome (back) to Usered.</h1>
             <p><b>Glad to see ya!</b> The 3 funnies (Term, bruhdude & Rixy) were waiting for you. LET'S START THE PARTYYY!</p>
+            <br>
+            <p>Usered development progress:</p>
+            <br>
+            <progress class="yt-progress-bar" value="30" max="100">30%</progress>
+            <br>
             <a href="/news">Checkout latest updates</a>
             <br>
             <a href="/feedback">Send feedback</a>

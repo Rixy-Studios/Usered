@@ -32,6 +32,11 @@ require_once "elements/header.php";
                 <li>-PHP</li>
                 <li>-(2013)Google+ CSS</li>
             </ul>
+            <h3 class="bluetext">Special Thanks</h3>
+            <p>This is my special thanks <3</p>
+            <ul>
+                <li>-<a href="https://noted.webs.nf/">Noted</a>, without this the design of this website would be terrible</li>
+            </ul>
         </div>
     </div>
 </div>
