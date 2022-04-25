@@ -18,7 +18,10 @@ $useneko = false;
         <div class="product-headers">
             <h1 class="bluetext">News</h1>
             <p>Here you can check out latest updates of the service.</p>
-            <h2 class="bluetext">[latest] Usered 0.20.7</h2>
+            <h2 class="bluetext">[latest] Usered 0.21.0</h2>
+            <p>-Added administrator status for admins on profiles</p>
+            <p>-A few other tweaks & minor bugfixes I liked</p>
+            <h2 class="bluetext">Usered 0.20.7</h2>
             <br>
             <p>-You can now add videos & images to a reed!</p>
             <h2 class="bluetext">Usered 0.20.6</h2>

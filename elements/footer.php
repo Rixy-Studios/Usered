@@ -6,7 +6,7 @@
             <li><a href="/legal/privacy" target="_blank">Privacy</a></li>
             <li><a href="/news" target="_blank">Updates</a></li>
             <li><a href="/credits" target="_blank">Credits</a></li>
-            <li>Usered version 0.20.7</li>
+            <li>Usered version 0.21.0</li>
         </ul>
     </div>
 </div>
