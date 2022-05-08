@@ -2,6 +2,8 @@
 //Map your routes there.
 
 $router->map('GET', '/', 'pages/home.php');
+$router->map('GET|POST', '/blog_post/create', 'pages/c_blog_post.php');
+$router->map('GET', '/blog_post/[i:id]', 'pages/blog_post.php');
 $router->map('GET|POST', '/profile/[i:id]', 'pages/profile.php');
 $router->map('GET', '/credits', 'pages/credits.php');
 $router->map('GET', '/legal/terms', 'pages/terms.php');

@@ -1,6 +1,7 @@
 <?php
 class Feedback{
     public function createFeedback($conn, $title, $content, $author){
+        $content = htmlspecialchars($content);
         $query = $conn->prepare("INSERT INTO `feedback`(author, title, content) VALUES(:author, :title, :content)");
         $query->execute([
             "author" => $author,

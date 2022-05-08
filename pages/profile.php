@@ -2,6 +2,7 @@
 require_once "./utils/database.php";
 require_once "./database/user.php";
 require_once "./database/activity.php";
+require_once "./database/blog_post.php";
 require_once "./database/reed.php";
 require_once "./database/misc.php";
 require_once "./database/follow.php";
@@ -16,6 +17,7 @@ $reedClass = new Reed;
 $miscClass = new Misc;
 $utilsClass = new Utils;
 $followClass = new Follow;
+$bpClass = new BlogPost;
 require_once "./database/ban.php";
 $banClass = new Ban;
 $profile_user = $userClass->getUserFromID($conn, $id);
@@ -102,7 +104,7 @@ if(empty($profile_user['discord_tag'])){
             <img src="<?= $profile_user['avatar_url'] ?>" alt="Profile Picture" class="pfp">
             <br>
             <br>
-            <h1 class="bluetext"><?= $profile_user['username'] ?> <? if($user['id']==$profile_user['id']){ ?><a class="g-button g-button-red" href="/edit-profile">EDIT</a><? }else{ ?><form method="post"><input type="submit" name="submit" value="<? if($if_following){ echo "UNFOLLOW"; }else{ echo "FOLLOW"; } ?>" class="g-button g-button-red"> <? } ?></h1>
+            <h1 class="bluetext"><?= $profile_user['username'] ?> <? if($user['id']==$profile_user['id']){ ?><a class="g-button g-button-red" href="/edit-profile">EDIT</a><? }else{ ?><form method="post"><input type="submit" name="submit" value="<? echo $if_following ? "UNFOLLOW" : "FOLLOW"; ?>" class="g-button g-button-red"> <? } ?></h1>
             <? if($profile_user['perms']==1){ ?><p class="redtext"><b>This user is an administrator. Contact him if necessary.</b></p><? } ?>
             <?php 
             if(isset($_POST['submit']) && $user['id']!==$profile_user['id']){
@@ -156,7 +158,7 @@ if(empty($profile_user['discord_tag'])){
             <?php
             foreach($latestReeds as $reed){ 
                 $tmstp = $miscClass->getTimestampFromDate($conn, $reed['timestamp']);?>
-                <div class="reminder" id="#reed<?= $reed['id'] ?>">
+                <div class="reminder" id="reed<?= $reed['id'] ?>">
                     <p><?= nl2br($reed['content']); ?></p>
                     <? if(!empty($reed['image_url'])){ ?>
                     <img src="<?= $reed['image_url'] ?>" alt="Linked image" width="500px">
@@ -191,8 +193,21 @@ if(empty($profile_user['discord_tag'])){
                         <div class="feature-title bluetext">
                             <img src="<?= $actuser['avatar_url'] ?>" height="16"> 
                             New reed</div>
-                            <div> <?= $actuser['username'] ?> created a new <a href="<?= $activity['target'] ?>#reed<?= $activity['id'] ?>">reed</a><br>
+                            <div> <?= $actuser['username'] ?> created a new <a href="<?= $activity['target'] ?>#reed<?= $activity['extra'] ?>">reed</a><br>
                                 <p>"<?= $reed_content ?><? if($reed['content']!==$reed_content){ echo "..."; } ?>"</p>
+                                <small style="color: grey; "><i><?= $utilsClass->get_time_ago($tmstp); ?></i></small>
+                            </div>
+                    </div>
+            <?php 
+            }elseif($activity['type']==3){ 
+                    $blogpost = $bpClass->getBlogPostFromID($conn, $activity['extra']);
+                    $blogpost_title = mb_substr($blogpost['title'], 0, 70, 'utf8');?>
+                    <div class="reminder">
+                        <div class="feature-title bluetext">
+                            <img src="<?= $actuser['avatar_url'] ?>" height="16"> 
+                            New blog post</div>
+                            <div> <?= $actuser['username'] ?> created a new <a href="<?= $activity['target'] ?>">blog post</a><br>
+                                <p>"<?= $blogpost_title ?><? if($blogpost['title']!==$blogpost_title){ echo "..."; } ?>"</p>
                                 <small style="color: grey; "><i><?= $utilsClass->get_time_ago($tmstp); ?></i></small>
                             </div>
                     </div>

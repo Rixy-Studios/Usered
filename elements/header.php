@@ -14,7 +14,7 @@ if(!isset($banClass)){
 if(isset($_SESSION['token'])){
     $user = $userClass->getUserFromToken($conn, $_SESSION['token']);
 }else{
-    header("Location: https://pi.rixynet.webs.nf/link.php?appid=8");
+    exit(require_once "pages/why.php");
 }
 $if_ban = $banClass->checkBan($conn, $user['id']);
 if($if_ban){
@@ -86,7 +86,7 @@ if($if_ban){
     </style>
     <link rel="stylesheet" href="/css/usered-framework.css">
     <link rel="icon" type="image/png" href="/img/fav.png">
-    <? if(substr($_SERVER['REQUEST_URI'], 0, 8 ) !== "/profile"){ ?>
+    <? if(substr($_SERVER['REQUEST_URI'], 0, 8 ) !== "/profile" && substr($_SERVER['REQUEST_URI'], 0, 10 ) !== "/blog_post"){ ?>
     <? if($user['c_css_everywhere']==1){ ?>
     <style>
         <?= $user['css'] ?>
@@ -107,6 +107,7 @@ if($if_ban){
       <a href="/"><img class="logo" alt="Usered" src="/img/logo.png" height="50px"></a>
       <div class="button-container-idk">
         <a class="g-button g-button-submit" href="/profile/<?= $user['id'] ?>">Profile</a>
+        <a class="g-button g-button-submit" href="/blog_post/create">Create a blog post</a>
         <? if($user['perms']==1){ ?><a class="g-button g-button-submit" href="/admin">Admin panel</a><? } ?>
       </div>
       <span class="signup-button"><a id="link-signup" class="g-button g-button-red" href="/logout">Logout</a></span>
