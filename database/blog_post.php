@@ -7,6 +7,13 @@ class BlogPost{
         ]);
         return $query->fetch();
     }
+    public function getAllBlogPostFromUserID($conn, $id){
+        $query = $conn->prepare("SELECT * FROM `blogpost` WHERE `author`=:id ORDER BY `id` DESC");
+        $query->execute([
+            "id" => $id
+        ]);
+        return $query->fetchAll();
+    }
     public function createBlogPost($conn, $title, $content, $banner_url,$author){
         $query = $conn->prepare("INSERT INTO `blogpost`(author, title, content, banner_url) VALUES(:author, :title, :content, :banner_url)");
         $query->execute([

@@ -68,6 +68,7 @@ if($if_ban){
 }
 $activities = $actClass->getLatestActivitiesFromUser($conn, $profile_user['id']);
 $latestReeds = $reedClass->getLatestReedsFromProfile($conn, $profile_user['id']);
+$latestPosts = $bpClass->getAllBlogPostFromUserID($conn, $profile_user['id']);
 $followers = $followClass->checkFollowsAsTarget($conn, $profile_user['id']);
 $following = $followClass->checkFollowsAsSource($conn, $profile_user['id']);
 if(!$profile_user){
@@ -170,6 +171,16 @@ if(empty($profile_user['discord_tag'])){
                     <br>
                     <br>
                     <? } ?>
+                    <small style="color: grey; "><i><?= $utilsClass->get_time_ago($tmstp); ?></i></small>
+                </div>
+            <?php } ?>
+            <h2 class="bluetext"><?= $profile_user['username'] ?>'s Blog Posts</h2>
+            <?php
+            foreach($latestPosts as $post){
+                $blogpost_title = mb_substr($post['title'], 0, 70, 'utf8');
+                $tmstp = $miscClass->getTimestampFromDate($conn, $post['date_created']);?>
+                <div class="reminder" id="reed<?= $reed['id'] ?>">
+                    <a href="/blog_post/<?= $post['id'] ?>"><p>"<?= $blogpost_title ?><? if($post['title']!==$blogpost_title){ echo "..."; } ?>"</p></a>
                     <small style="color: grey; "><i><?= $utilsClass->get_time_ago($tmstp); ?></i></small>
                 </div>
             <?php } ?>
