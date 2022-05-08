@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : Dim 24 avr. 2022 à 16:25
--- Version du serveur :  5.7.37-cll-lve
+-- Généré le : Dim 08 mai 2022 à 14:59
+-- Version du serveur :  5.7.38-cll-lve
 -- Version de PHP : 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -47,6 +47,21 @@ CREATE TABLE `bans` (
   `id` int(11) NOT NULL,
   `target` int(11) NOT NULL,
   `reason` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `blogpost`
+--
+
+CREATE TABLE `blogpost` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `author` int(11) NOT NULL,
+  `banner_url` varchar(255) DEFAULT NULL,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -140,6 +155,12 @@ ALTER TABLE `bans`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `blogpost`
+--
+ALTER TABLE `blogpost`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `feedback`
 --
 ALTER TABLE `feedback`
@@ -184,6 +205,12 @@ ALTER TABLE `activity`
 -- AUTO_INCREMENT pour la table `bans`
 --
 ALTER TABLE `bans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `blogpost`
+--
+ALTER TABLE `blogpost`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
