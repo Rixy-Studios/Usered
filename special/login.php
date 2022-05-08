@@ -1,13 +1,18 @@
 <?php
-/* Ugliest file ever.
+/*
 
-Needs entire rewrite to the new way to do this shit.
+Usered login
 
+well, ugly, but better than earlier in the project lmfao
 */
 require_once "./utils/database.php";
+require_once "./database/user.php";
+require_once "./database/ban.php";
 require_once "./utils/utils.php";
 $dbClass = new Database;
 $dbClass->init_session();
+$userClass = new User;
+$banClass = new Ban;
 $conn = $dbClass->connect();
 if(isset($_SESSION['token'])){
     header("Location: /");
@@ -20,28 +25,15 @@ $apidecoded = json_decode($api, true);
 if(isset($apidecoded['success']) && $apidecoded['success'] == 0){
     exit("Wrong token.");
 }
-//if($apidecoded['authorized_usered'] !== "true"){
-//    http_response_code(403);
-//    exit("<html><head><title>Whoops!</title><link rel='stylesheet' href='/css/usered-framework.css'></head><body><h1 class='redtext'>Oh no</h1><p class='redtext'>Looking for technical preview? Well, it closed! Thank you for using our technical preview (and giving us feedback)! Using this, we will improve Usered!</p></body></html>");
-//}
-$q = $conn->prepare("SELECT * FROM `user` WHERE `username`=:username");
-$q->execute([
-    "username" => $apidecoded['username']
-]);
-$r = $q->fetch();
+
+$r = $userClass->getUserFromUsername($conn, $apidecoded['username']);
 if(empty($r)){
-    $rg = $conn->prepare("INSERT INTO `user`(username) VALUES(:username)");
-    $rg->execute([
-        "username" => $apidecoded['username']
-    ]);
+    $userClass->createUser($conn, $apidecoded['username']);
     header("Location: https://" . $_SERVER['HTTP_HOST']. $_SERVER['REQUEST_URI']."?new=1");
 }
-$q2 = $conn->prepare("SELECT * FROM `bans` WHERE `target`=:target");
-$q2->execute([
-    "target" => $r['id']
-]);
-$r2 = $q2->fetch();
-if($r2){?>
+$if_ban = $banClass->checkBan($conn, $r['id']);
+if($if_ban){
+    $ban = $banClass->getBan($conn, $r['id']);?>
 <head>
     <title>Banned - Usered</title>
     <!-- <link rel="stylesheet" href="css/yt-framework.css"> -->
@@ -77,7 +69,7 @@ if($r2){?>
         <div class="product-headers">
             <h1 class="redtext">You have been banned.</h1>
             <br>
-            <p class="redtext">You have been banned from Usered for this reason: <?= $r2['reason'] ?></p>
+            <p class="redtext">You have been banned from Usered for this reason: <?= $ban['reason'] ?></p>
             <h2 class="redtext"><b>Next time, read the rules before going to a social network.</b></h2>
       </div>
   </div>
@@ -95,17 +87,11 @@ $q->execute([
 $_SESSION['token'] = $token;
 setcookie("readme", "DO-NOT-SHARE-YOUR-COOKIES");
 if($_GET['new']==1){
-    $q = $conn->prepare("UPDATE `user` SET `new`=0 WHERE `id`=:id");
-    $q->execute([
-        "id" => $r['id']
-    ]);
+    $userClass->update($conn, "new", 0, $r['id'], false);
     header("Location: /oobe");
     exit;
 }else if($r['new']==1){
-    $q = $conn->prepare("UPDATE `user` SET `new`=0 WHERE `id`=:id");
-    $q->execute([
-        "id" => $r['id']
-    ]);
+    $userClass->update($conn, "new", 0, $r['id'], false);
     header("Location: /oobe");
     exit;
 }
