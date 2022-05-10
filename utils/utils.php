@@ -2,8 +2,29 @@
 //function stealFromStackOverflow($code){
 //    echo $code;
 //}
-
 class Utils{
+    public function sendMail($mail, $host, $from, $address, $subject, $body){
+        //Made by Me :D
+        $mail->IsSMTP();
+        $mail->Host = $host;
+        $mail->From = $from;
+        $mail->FromName = 'Usered Bot';
+        $mail->AddAddress($address);
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+        $mail->AltBody = 'Your email client does not support HTML. Please upgrade to a new one.';
+        if(!$mail->Send()){
+        }
+    }
+    public function formatText($text, $htmlspecialcharised){
+        if($htmlspecialcharised){
+            $text = htmlspecialchars($text);
+        }
+        $text = preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%_+.~#?&;//=]+)!i', '<a href="$1">$1</a>', $text);
+        $text = nl2br($text);
+        return $text;
+    }
     public function tokenGen(
         int $length = 64,
         string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'

@@ -33,11 +33,11 @@ class User{
             "id" => $id
         ]);
     }
-    public function createUser($conn, $username, $password){
-        $query = $conn->prepare("INSERT INTO `user`(`username`, `password`, `bio`) VALUES(:username, :password, 'Hi! :3')");
+    public function createUser($conn, $username, $email){
+        $query = $conn->prepare("INSERT INTO `user`(`username`, `email`) VALUES(:username, :email)");
         $query->execute([
             "username" => $username,
-            "password" => $password
+            "email" => $email
         ]);
     }
     public function login($conn, $utils, $username, $password){

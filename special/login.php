@@ -9,6 +9,9 @@ require_once "./utils/database.php";
 require_once "./database/user.php";
 require_once "./database/ban.php";
 require_once "./utils/utils.php";
+require_once "./3rdparty/phpmailer/src/PHPMailer.php";
+require_once "./3rdparty/phpmailer/src/Exception.php";
+require_once "./3rdparty/phpmailer/src/SMTP.php";
 $dbClass = new Database;
 $dbClass->init_session();
 $userClass = new User;
@@ -28,7 +31,7 @@ if(isset($apidecoded['success']) && $apidecoded['success'] == 0){
 
 $r = $userClass->getUserFromUsername($conn, $apidecoded['username']);
 if(empty($r)){
-    $userClass->createUser($conn, $apidecoded['username']);
+    $userClass->createUser($conn, $apidecoded['username'], $apidecoded['email']);
     header("Location: https://" . $_SERVER['HTTP_HOST']. $_SERVER['REQUEST_URI']."?new=1");
 }
 $if_ban = $banClass->checkBan($conn, $r['id']);
@@ -86,11 +89,15 @@ $q->execute([
 ]);
 $_SESSION['token'] = $token;
 setcookie("readme", "DO-NOT-SHARE-YOUR-COOKIES");
+$phpmailer = new PHPMailer\PHPMailer\PHPMailer();
+$text = "<style>body{font-family: sans-serif;}</style><center><img src='https://usered.ar.nf/img/logo.png'><h1>Welcome to Usered.</h1><br><p>Hope you're enjoying this in heavy development social network.</p><br><p>Have fun! :D</p></center>";
 if($_GET['new']==1){
+    $utilsClass->sendMail($phpmailer, MAIL_SERVER, MAIL_FROM, $r['email'], "Welcome to Usered!", $text);
     $userClass->update($conn, "new", 0, $r['id'], false);
     header("Location: /oobe");
     exit;
 }else if($r['new']==1){
+    $utilsClass->sendMail($phpmailer, MAIL_SERVER, MAIL_FROM, $r['email'], "Welcome to Usered!", $text);
     $userClass->update($conn, "new", 0, $r['id'], false);
     header("Location: /oobe");
     exit;

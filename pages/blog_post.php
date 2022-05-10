@@ -3,12 +3,14 @@ require_once "./utils/database.php";
 require_once "./database/user.php";
 require_once "./database/blog_post.php";
 require_once "./database/misc.php";
+require_once "./utils/utils.php";
 $dbClass = new Database;
 $dbClass->init_session();
 $conn =  $dbClass->connect();
 $userClass = new User;
 $bpClass = new BlogPost;
 $miscClass = new Misc;
+$utilsClass = new Utils;
 require_once "./database/ban.php";
 $banClass = new Ban;
 $blogpost = $bpClass->getBlogPostFromID($conn, $id);
@@ -87,3 +89,6 @@ require_once "elements/header.php";
         </div>
     </div>
 </div>
+<?php
+require_once "elements/footer.php";
+?>

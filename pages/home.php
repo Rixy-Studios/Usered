@@ -46,9 +46,7 @@ $activity_feed = array();
             <br>
             <progress class="yt-progress-bar" value="40" max="100">40%</progress>
             <br>
-            <a href="/news">Checkout latest updates</a>
-            <br>
-            <a href="/feedback">Send feedback</a>
+            <p>Wonder where the feedback & news links did go? Well the footer is fixed, and is now again on every page!</p>
             <?php if(!empty($follows)){ ?>
                 <h2 class="bluetext"><b>Personal feed:</b></h2>
                 <?php foreach($follows as $follow){
@@ -143,3 +141,6 @@ $activity_feed = array();
         </div>
     </div>
 </div>
+<?php
+require_once "elements/footer.php";
+?>

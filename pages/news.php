@@ -18,7 +18,11 @@ $useneko = false;
         <div class="product-headers">
             <h1 class="bluetext">News</h1>
             <p>Here you can check out latest updates of the service.</p>
-            <h2 class="bluetext">[latest] Usered 0.30.0</h2>
+            <h2 class="bluetext">[latest] Usered 0.31.0</h2>
+            <p>-Few code improvements optimisation</p>
+            <p>-New little features to improve the user experience</p>
+            <p>-Added mail sending, you can now recieve mails for important actions</p>
+            <h2 class="bluetext">Usered 0.30.0</h2>
             <p>-Few code optimisation</p>
             <p><b>-ADDED BLOG POSTS!!! YEAAAA!</b></p>
             <h2 class="bluetext">Usered 0.21.0</h2>
@@ -51,3 +55,6 @@ $useneko = false;
         </div>  
     </div>        
 </div>
+<?php
+require_once "elements/footer.php";
+?>

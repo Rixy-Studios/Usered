@@ -110,7 +110,7 @@ if(empty($profile_user['discord_tag'])){
             <?php 
             if(isset($_POST['submit']) && $user['id']!==$profile_user['id']){
                 if($if_following){
-                    $followClass->removeFollow($conn, $user['id'], $profile_user['id']);
+                   $followClass->removeFollow($conn, $user['id'], $profile_user['id']);
                     echo "<p class='greentext'>You are now unfollowing: ".$profile_user['username']."</p>";
                 }else{
                     $followClass->createFollow($conn, $user['id'], $profile_user['id']);
@@ -160,7 +160,7 @@ if(empty($profile_user['discord_tag'])){
             foreach($latestReeds as $reed){ 
                 $tmstp = $miscClass->getTimestampFromDate($conn, $reed['timestamp']);?>
                 <div class="reminder" id="reed<?= $reed['id'] ?>">
-                    <p><?= nl2br($reed['content']); ?></p>
+                    <p><?= $utilsClass->formatText($reed['content'], true); ?></p>
                     <? if(!empty($reed['image_url'])){ ?>
                     <img src="<?= $reed['image_url'] ?>" alt="Linked image" width="500px">
                     <br>
@@ -227,3 +227,6 @@ if(empty($profile_user['discord_tag'])){
         </div>
     </div>
 </div>
+<?php
+require_once "elements/footer.php";
+?>

@@ -1,12 +1,18 @@
 <?php
+require_once "./3rdparty/phpmailer/src/PHPMailer.php";
+require_once "./3rdparty/phpmailer/src/Exception.php";
+require_once "./3rdparty/phpmailer/src/SMTP.php";
 require_once "./utils/database.php";
 require_once "./database/user.php";
 require_once "./database/activity.php";
+require_once "./utils/utils.php";
+$phpmailer = new PHPMailer\PHPMailer\PHPMailer();
 $dbClass = new Database;
 $dbClass->init_session();
 $conn =  $dbClass->connect();
 $userClass = new User;
 $actClass = new Activity;
+$utilsClass = new Utils;
 require_once "./database/ban.php";
 $banClass = new Ban;
 //metadata needed for header
@@ -60,6 +66,8 @@ require_once "elements/header.php"
             </form>
             <?php
             if(isset($_POST['submit'])){
+                $text = "<style>body{font-family: sans-serif;}</style><center><img src='https://usered.ar.nf/img/logo.png'><h1>Info</h1><p>Your profile has been modified.</p><br><p>It wasn't you? <b>Then your account maybe got hacked.</b></p></center>";
+                $utilsClass->sendMail($phpmailer, MAIL_SERVER, MAIL_FROM, $user['email'], "Profile modificaition info", $text);
                 $userClass->update($conn, "status", $_POST['status'], $user['id'], true);
                 $userClass->update($conn, "bio", $_POST['bio'], $user['id'], false);
                 $userClass->update($conn, "pronouns", $_POST['pronouns'], $user['id'], true);
@@ -75,3 +83,6 @@ require_once "elements/header.php"
         </div>
     </div>
 </div>
+<?php
+require_once "elements/footer.php";
+?>

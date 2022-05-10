@@ -42,3 +42,6 @@ if($user['perms']==0){
         </div>
     </div>
 </div>
+<?php
+require_once "elements/footer.php";
+?>
