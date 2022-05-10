@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : Dim 08 mai 2022 à 14:59
+-- Généré le : mar. 10 mai 2022 à 14:33
 -- Version du serveur :  5.7.38-cll-lve
 -- Version de PHP : 7.3.28
 
@@ -125,6 +125,7 @@ CREATE TABLE `tokens` (
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `bio` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `pronouns` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '???',
