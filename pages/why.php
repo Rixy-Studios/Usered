@@ -33,7 +33,7 @@
 <div class="google-header-bar">
     <div class="header content clearfix">
       <a href="/"><img class="logo" alt="Usered" src="/img/logo.png" height="50px"></a>
-      <span class="signup-button"><a id="link-signup" class="g-button g-button-red" href="https://pi.rixynet.webs.nf/link.php?appid=8">Login</a></span>
+      <span class="signup-button"><a id="link-signup" class="g-button g-button-red" href="<?= ACT_URL ?>/link.php?appid=8">Login</a></span>
     </div>
 </div>
 <div class="main content clearfix">

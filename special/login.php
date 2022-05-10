@@ -23,7 +23,7 @@ if(isset($_SESSION['token'])){
 if(!isset($_GET['userToken'])){
     exit("No userToken found; aborting.");
 }
-$api = file_get_contents('http://pi.rixynet.webs.nf/getuserdetails.php?token=' .$_GET['userToken']);
+$api = file_get_contents(ACT_URL.'/getuserdetails.php?token=' .$_GET['userToken']);
 $apidecoded = json_decode($api, true);
 if(isset($apidecoded['success']) && $apidecoded['success'] == 0){
     exit("Wrong token.");
