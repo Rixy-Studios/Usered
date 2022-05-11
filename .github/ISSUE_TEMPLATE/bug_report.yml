@@ -1,7 +1,7 @@
 name: "OOO Pretty scary bug!"
 description: Having a bug using the website????
 body:
-   - type: textarea
+  - type: textarea
     attributes:
       label: Issue description
       placeholder: Briefly describe your issue here.
