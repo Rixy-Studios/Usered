@@ -1,0 +1,21 @@
+name: "Improve Usered :sparkles"
+description: You have an-awesome-must-share-incredible-everything-else feature/improvement? You can share it there!
+body:
+  - type: textarea
+    attributes:
+      label: Feature description
+      placeholder: Describe your idea here.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Why can it improve the website?
+      placeholder: All in the title.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: URLs
+      placeholder: Create URLs for this feature, if any needed.(optional)
+    validations:
+      required: false
