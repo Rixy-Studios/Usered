@@ -7,6 +7,13 @@ class User{
         ]);
         return $query->fetch();
     }
+    public function getUserFromEmail($conn, $email){
+        $query = $conn->prepare("SELECT * FROM `user` WHERE `email`=:email");
+        $query->execute([
+            "email" => $email
+        ]);
+        return $query->fetch();
+    }
     public function getUserFromID($conn, $id){
         $query = $conn->prepare("SELECT * FROM `user` WHERE `id`=:id");
         $query->execute([
@@ -33,12 +40,23 @@ class User{
             "id" => $id
         ]);
     }
-    public function createUser($conn, $username, $email){
-        $query = $conn->prepare("INSERT INTO `user`(`username`, `email`) VALUES(:username, :email)");
+    public function createUser($conn, $username, $email, $password){
+        $usernamechk = $this->getUserFromUsername($conn, $username);
+        if($usernamechk){
+            return "ALREADY_TAKEN_USERNAME";
+        }
+        $emailchk = $this->getUserFromEmail($conn, $email);
+        if($emailchk){
+            return "ALREADY_TAKEN_EMAIL";
+        }
+        $hashpass = password_hash($password, PASSWORD_BCRYPT);
+        $query = $conn->prepare("INSERT INTO `user`(`username`, `password`, `email`) VALUES(:username, :password, :email)");
         $query->execute([
             "username" => $username,
+            "password" => $hashpass,
             "email" => $email
         ]);
+        return "OK";
     }
     public function login($conn, $utils, $username, $password){
         // check

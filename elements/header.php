@@ -14,7 +14,7 @@ if(!isset($banClass)){
 if(isset($_SESSION['token'])){
     $user = $userClass->getUserFromToken($conn, $_SESSION['token']);
 }else{
-    exit(require_once "pages/why.php");
+    exit(header("Location: /login"));
 }
 $if_ban = $banClass->checkBan($conn, $user['id']);
 if($if_ban){

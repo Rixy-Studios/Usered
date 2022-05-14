@@ -7,6 +7,9 @@ $dbClass->init_session();
 $conn = $dbClass->connect();
 $utilsClass = new Utils;
 $userClass = new User;
+if(!SIGNUP_AUTHORIZED){
+    header("Location: /login");
+}
 ?>
 <html>
 <head>
@@ -54,30 +57,35 @@ $userClass = new User;
                     <input type="text" spellcheck="false" name="username" id="Username" value="">
                 </div>
                 <div class="passwd-div">
+                    <label for="Email"><strong class="passwd-label">Email</strong></label>
+                    <input type="email" name="email" id="Email">
+                </div>
+                <div class="passwd-div">
                     <label for="Passwd"><strong class="passwd-label">Password</strong></label>
                     <input type="password" name="password" id="Passwd">
                 </div>
-                <input type="submit" class="g-button g-button-submit" name="signIn" id="signIn" value="Sign in">
+                <input type="submit" class="g-button g-button-submit" name="signUp" id="signUp" value="Sign up">
             </form>
             <?php
-            if(isset($_POST['username'])){
-                $status = $userClass->login($conn, $utilsClass, $_POST['username'], $_POST['password']);
-                if($status=="INVALID_USER"){
-                    echo "<p class='redtext'>Invalid username/password.";
-                }else if($status=="INVALID_PASSWORD"){
-                    echo "<p class='redtext'>Invalid username/password.";
-                }else if($status=="OK"){
-                    header("Location: /");
-                    exit;
+            if(isset($_POST['signUp'])){
+                if(!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])){
+                    $status = $userClass->createUser($conn, $_POST['username'], $_POST['email'], $_POST['password']);
+                    if($status=="ALREADY_TAKEN_USERNAME"){
+                        echo "<p class='redtext'>This username has already been taken.</p>";
+                    }else if($status=="ALREADY_TAKEN_EMAIL"){
+                        echo "<p class='redtext'>This email has already been taken.";
+                    }else if($status=="OK"){
+                        header("Location: /login");
+                        exit;
+                    }
+                }else{
+                    echo "<p class='redtext'>You didn't fill out all the fields.</p>";
                 }
             }
             ?>
         <ul>
             <li>
-                <?php
-                if(SIGNUP_AUTHORIZED){ ?>
-                <a id="link-forgot-passwd" href="/signup" target="_top">Don't have an account?</a>
-                <?php } ?>
+                <a id="link-forgot-passwd" href="/login" target="_top">You have an account?</a>
             </li>
         </ul>
         </div>
