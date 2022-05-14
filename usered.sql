@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 10 mai 2022 à 14:33
+-- Généré le : sam. 14 mai 2022 à 18:34
 -- Version du serveur :  5.7.38-cll-lve
 -- Version de PHP : 7.3.28
 
@@ -35,6 +35,32 @@ CREATE TABLE `activity` (
   `target` varchar(255) NOT NULL,
   `extra` int(11) DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `app_link`
+--
+
+CREATE TABLE `app_link` (
+  `appid` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `redirecturl` varchar(255) NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `app_tokens`
+--
+
+CREATE TABLE `app_tokens` (
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `usage_num` tinyint(2) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -150,6 +176,18 @@ ALTER TABLE `activity`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `app_link`
+--
+ALTER TABLE `app_link`
+  ADD PRIMARY KEY (`appid`);
+
+--
+-- Index pour la table `app_tokens`
+--
+ALTER TABLE `app_tokens`
+  ADD UNIQUE KEY `token` (`token`);
+
+--
 -- Index pour la table `bans`
 --
 ALTER TABLE `bans`
@@ -201,6 +239,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `activity`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `app_link`
+--
+ALTER TABLE `app_link`
+  MODIFY `appid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `bans`
