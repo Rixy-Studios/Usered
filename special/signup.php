@@ -40,7 +40,6 @@ $userClass = new User;
  <div class="wrapper">
   <ul class="yt-navigation-dark">
       <li class="selected" onclick="window.location.href='/'">Usered</li>
-      <li onclick="window.location.href='https://pi.rixynet.webs.nf'">Riiset</li>
       <li onclick="window.location.href='https://noted.webs.nf'">Noted</li>
   </ul>
 <div class="google-header-bar">
