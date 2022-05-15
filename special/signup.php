@@ -90,7 +90,7 @@ $userClass = new User;
                 }
             }
             ?>
-        <ul>login
+        <ul>
             <li>
                 <a id="link-forgot-passwd" href="/login" target="_top">You have an account?</a>
             </li>
@@ -106,7 +106,6 @@ $userClass = new User;
           <li class="hangouts yt-tooltip" title="Share you content to everyone."><h3>Global feed & personal feed</h3></li>
           <li class="photo yt-tooltip" title="You can embed photos & videos to your Reeds."><h3>Photos & videos</h3></li>
         </ul>
-        <b><p class="redtext">+ it is the replacement to Riiset!</p></b>
     </div>
 <?php
 footer: ?>
