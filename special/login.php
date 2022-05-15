@@ -5,6 +5,9 @@ require_once "./database/user.php";
 $dbClass = new Database;
 $dbClass->init_session();
 $conn = $dbClass->connect();
+if(isset($_SESSION['token'])){
+    header("Location: /");
+}
 $utilsClass = new Utils;
 $userClass = new User;
 ?>
@@ -84,14 +87,17 @@ $userClass = new User;
   </div>
     <div class="product-info oz">
         <h1 class="bluetext">Welcome to Usered.</h1>
-        <p>Usered is a <b>brand new</b> social created from the ground up <b>without internal code bloat, no javascripts, just pure CSS and html.</b> Say goodbye to lags!</p>
+        <p><?= NOT_LOGGED_DESC ?></p>
+        <? if(!SIGNUP_AUTHORIZED){ ?>
+        <br>
+        <p class="bluetext"><b>This is a private instance. You must contact administrators to register into this instance.</b></p>
+        <? } ?>
         <h1 class="bluetext">Features</h1>
         <ul class="plus-features clearfix">
           <li class="circles yt-tooltip" title="You can make this evolve into something bigger using feedback. We love this <3"><h3>By everybody</h3></li>
           <li class="hangouts yt-tooltip" title="Share you content to everyone."><h3>Global feed & personal feed</h3></li>
           <li class="photo yt-tooltip" title="You can embed photos & videos to your Reeds."><h3>Photos & videos</h3></li>
         </ul>
-        <b><p class="redtext">+ it is the replacement to Riiset!</p></b>
     </div>
 </div>
 <?php

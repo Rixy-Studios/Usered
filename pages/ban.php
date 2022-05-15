@@ -6,6 +6,8 @@ require_once "./utils/database.php";
 require_once "./utils/utils.php";
 require_once "./database/user.php";
 require_once "./database/ban.php";
+require_once "./database/dm.php";
+$dmClass = new Dm;
 $phpmailer = new PHPMailer\PHPMailer\PHPMailer();
 $dbClass = new Database;
 $dbClass->init_session();

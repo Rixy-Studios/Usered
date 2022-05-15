@@ -5,11 +5,11 @@ require_once "./database/user.php";
 $dbClass = new Database;
 $dbClass->init_session();
 $conn = $dbClass->connect();
+if(isset($_SESSION['token'])){
+    header("Location: /");
+}
 $utilsClass = new Utils;
 $userClass = new User;
-if(!SIGNUP_AUTHORIZED){
-    header("Location: /login");
-}
 ?>
 <html>
 <head>
@@ -49,6 +49,14 @@ if(!SIGNUP_AUTHORIZED){
     </div>
 </div>
 <div class="main content clearfix">
+    <?php if(!SIGNUP_AUTHORIZED){?>
+    <div class="product-info oz">
+        <h1 class="redtext">Error</h1>
+        <p><b class="redtext">This instance does not accept more signups.</b></p>
+        <p><i>Contact administrators to register.</i></p>
+    </div>
+        <?php goto footer;
+     } ?>
     <div class="sign-in">
         <div class="signin-box">
             <form method="post">
@@ -83,7 +91,7 @@ if(!SIGNUP_AUTHORIZED){
                 }
             }
             ?>
-        <ul>
+        <ul>login
             <li>
                 <a id="link-forgot-passwd" href="/login" target="_top">You have an account?</a>
             </li>
@@ -92,7 +100,7 @@ if(!SIGNUP_AUTHORIZED){
   </div>
     <div class="product-info oz">
         <h1 class="bluetext">Welcome to Usered.</h1>
-        <p>Usered is a <b>brand new</b> social created from the ground up <b>without internal code bloat, no javascripts, just pure CSS and html.</b> Say goodbye to lags!</p>
+        <p><?= NOT_LOGGED_DESC ?></p>
         <h1 class="bluetext">Features</h1>
         <ul class="plus-features clearfix">
           <li class="circles yt-tooltip" title="You can make this evolve into something bigger using feedback. We love this <3"><h3>By everybody</h3></li>
@@ -101,6 +109,8 @@ if(!SIGNUP_AUTHORIZED){
         </ul>
         <b><p class="redtext">+ it is the replacement to Riiset!</p></b>
     </div>
+<?php
+footer: ?>
 </div>
 <?php
 require_once "elements/footer.php";

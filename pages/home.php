@@ -7,6 +7,8 @@ require_once "./database/misc.php";
 require_once "./database/follow.php";
 require_once "./database/reed.php";
 require_once "./database/blog_post.php";
+require_once "./database/dm.php";
+$dmClass = new Dm;
 $dbClass = new Database;
 $dbClass->init_session();
 $conn =  $dbClass->connect();
@@ -44,7 +46,7 @@ $activity_feed = array();
             <br>
             <p>Usered development progress:</p>
             <br>
-            <progress class="yt-progress-bar" value="40" max="100">40%</progress>
+            <progress class="yt-progress-bar" value="55" max="100">55%</progress>
             <br>
             <p>Wonder where the feedback & news links did go? Well the footer is fixed, and is now again on every page!</p>
             <?php if(!empty($follows)){ ?>

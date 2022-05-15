@@ -3,6 +3,8 @@ require_once "./utils/database.php";
 require_once "./database/user.php";
 require_once "./utils/utils.php";
 require_once "./database/app.php";
+require_once "./database/dm.php";
+$dmClass = new Dm;
 $dbClass = new Database;
 $dbClass->init_session();
 $conn =  $dbClass->connect();

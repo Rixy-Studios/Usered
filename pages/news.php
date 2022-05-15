@@ -1,6 +1,8 @@
 <?php
 require_once "./utils/database.php";
 require_once "./database/user.php";
+require_once "./database/dm.php";
+$dmClass = new Dm;
 $dbClass = new Database;
 $dbClass->init_session();
 $conn =  $dbClass->connect();
@@ -18,7 +20,11 @@ $useneko = false;
         <div class="product-headers">
             <h1 class="bluetext">News</h1>
             <p>Here you can check out latest updates of the service.</p>
-            <h2 class="bluetext">[latest] Usered 0.32.0</h2>
+            <h2 class="bluetext">[latest] Usered 0.40.0</h2>
+            <p>-Few code improvements & optimisations</p>
+            <p>-Few improvements to upgrade user experience</p>
+            <p>-Added DMs</p>
+            <h2 class="bluetext">Usered 0.32.0</h2>
             <p>-Few code improvements optimisation</p>
             <b>-Usered is now Riiset-free</b>
             <br>

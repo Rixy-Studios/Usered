@@ -3,6 +3,7 @@ require_once "./utils/database.php";
 require_once "./database/user.php";
 require_once "./database/activity.php";
 require_once "./database/blog_post.php";
+require_once "./database/dm.php";
 require_once "./database/reed.php";
 require_once "./database/misc.php";
 require_once "./database/follow.php";
@@ -14,6 +15,7 @@ $conn =  $dbClass->connect();
 $userClass = new User;
 $actClass = new Activity;
 $reedClass = new Reed;
+$dmClass = new Dm;
 $miscClass = new Misc;
 $utilsClass = new Utils;
 $followClass = new Follow;
@@ -105,7 +107,7 @@ if(empty($profile_user['discord_tag'])){
             <img src="<?= $profile_user['avatar_url'] ?>" alt="Profile Picture" class="pfp">
             <br>
             <br>
-            <h1 class="bluetext"><?= $profile_user['username'] ?> <? if($user['id']==$profile_user['id']){ ?><a class="g-button g-button-red" href="/edit-profile">EDIT</a><? }else{ ?><form method="post"><input type="submit" name="submit" value="<? echo $if_following ? "UNFOLLOW" : "FOLLOW"; ?>" class="g-button g-button-red"> <? } ?></h1>
+            <h1 class="bluetext"><?= $profile_user['username'] ?> <? if($user['id']==$profile_user['id']){ ?><a class="g-button g-button-red" href="/edit-profile">EDIT</a><? }else{ ?><form method="post"><input type="submit" name="submit" value="<? echo $if_following ? "UNFOLLOW" : "FOLLOW"; ?>" class="g-button g-button-red"></form><a style="margin-top:2px;" class="g-button g-button-red" href="/access-dm?source=<?= $user['id']?>&target=<?= $profile_user['id'] ?>">Send DM</a><? } ?></h1>
             <? if($profile_user['perms']==1){ ?><p class="redtext"><b>This user is an administrator. Contact him if necessary.</b></p><? } ?>
             <?php 
             if(isset($_POST['submit']) && $user['id']!==$profile_user['id']){
@@ -157,6 +159,9 @@ if(empty($profile_user['discord_tag'])){
             } ?>
             <h2 class="bluetext"><?= $profile_user['username'] ?>'s Reeds</h2>
             <?php
+            if(!$latestReeds){
+                echo "<p class='bluetext'>Feels kinda empty here.</p>";
+            }
             foreach($latestReeds as $reed){ 
                 $tmstp = $miscClass->getTimestampFromDate($conn, $reed['timestamp']);?>
                 <div class="reminder" id="reed<?= $reed['id'] ?>">
@@ -176,6 +181,9 @@ if(empty($profile_user['discord_tag'])){
             <?php } ?>
             <h2 class="bluetext"><?= $profile_user['username'] ?>'s Blog Posts</h2>
             <?php
+            if(!$latestPosts){
+                echo "<p class='bluetext'>Feels kinda empty here.</p>";
+            }
             foreach($latestPosts as $post){
                 $blogpost_title = mb_substr($post['title'], 0, 70, 'utf8');
                 $tmstp = $miscClass->getTimestampFromDate($conn, $post['date_created']);?>
@@ -185,7 +193,11 @@ if(empty($profile_user['discord_tag'])){
                 </div>
             <?php } ?>
             <h2 class="bluetext">Latest activities</h2>
-            <?php foreach($activities as $activity){ 
+            <?php 
+            if(!$activities){
+                echo "<p class='bluetext'>Feels kinda empty here.</p>";
+            }
+            foreach($activities as $activity){ 
                     $actuser = $actClass->getUserFromActivity($conn, $activity['id']);
                     $tmstp = $miscClass->getTimestampFromDate($conn, $activity['timestamp']);
                     if($activity['type']==1){?>

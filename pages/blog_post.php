@@ -4,6 +4,8 @@ require_once "./database/user.php";
 require_once "./database/blog_post.php";
 require_once "./database/misc.php";
 require_once "./utils/utils.php";
+require_once "./database/dm.php";
+$dmClass = new Dm;
 $dbClass = new Database;
 $dbClass->init_session();
 $conn =  $dbClass->connect();

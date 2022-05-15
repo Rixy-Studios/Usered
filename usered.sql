@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : sam. 14 mai 2022 à 18:34
+-- Généré le : Dim 15 mai 2022 à 10:49
 -- Version du serveur :  5.7.38-cll-lve
 -- Version de PHP : 7.3.28
 
@@ -88,6 +88,35 @@ CREATE TABLE `blogpost` (
   `author` int(11) NOT NULL,
   `banner_url` varchar(255) DEFAULT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `conversation`
+--
+
+CREATE TABLE `conversation` (
+  `id` int(11) NOT NULL,
+  `source` int(11) NOT NULL,
+  `target` int(11) NOT NULL,
+  `cid` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `dm`
+--
+
+CREATE TABLE `dm` (
+  `id` int(11) NOT NULL,
+  `source` int(11) NOT NULL,
+  `target` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `conversation` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `new` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -200,6 +229,18 @@ ALTER TABLE `blogpost`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `conversation`
+--
+ALTER TABLE `conversation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `dm`
+--
+ALTER TABLE `dm`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `feedback`
 --
 ALTER TABLE `feedback`
@@ -256,6 +297,18 @@ ALTER TABLE `bans`
 -- AUTO_INCREMENT pour la table `blogpost`
 --
 ALTER TABLE `blogpost`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `conversation`
+--
+ALTER TABLE `conversation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `dm`
+--
+ALTER TABLE `dm`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

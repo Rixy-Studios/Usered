@@ -8,7 +8,7 @@
             <li><a href="/credits" target="_blank">Credits</a></li>
             <li><a href="/services" target="_blank">Services list</a></li>
             <li><a href="/feedback" target="_blank">Send feedback</a></li>
-            <li>Usered version 0.32.0</li>
+            <li>Usered version 0.40.0</li>
         </ul>
     </div>
 </div>

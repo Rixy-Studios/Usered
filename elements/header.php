@@ -11,6 +11,9 @@ if(!isset($userClass)){
 if(!isset($banClass)){
     exit("This element needs the ban class.");
 }
+if(!isset($dmClass)){
+    exit("This element needs the dm class.");
+}
 if(isset($_SESSION['token'])){
     $user = $userClass->getUserFromToken($conn, $_SESSION['token']);
 }else{
@@ -99,7 +102,6 @@ if($if_ban){
  <div class="wrapper">
   <ul class="yt-navigation-dark">
       <li class="selected" onclick="window.location.href='/'">Usered</li>
-      <li onclick="window.location.href='https://pi.rixynet.webs.nf'">Riiset</li>
       <li onclick="window.location.href='https://noted.webs.nf'">Noted</li>
   </ul>
 <div class="google-header-bar">
@@ -108,6 +110,7 @@ if($if_ban){
       <div class="button-container-idk">
         <a class="g-button g-button-submit" href="/profile/<?= $user['id'] ?>">Profile</a>
         <a class="g-button g-button-submit" href="/blog_post/create">Create a blog post</a>
+        <a class="g-button g-button-submit" href="/conversation">Conversations (<?= $dmClass->getDmNotRead($conn, $user['id'])[0];?>)</a>
         <? if($user['perms']==1){ ?><a class="g-button g-button-submit" href="/admin">Admin panel</a><? } ?>
       </div>
       <span class="signup-button"><a id="link-signup" class="g-button g-button-red" href="/logout">Logout</a></span>
