@@ -69,6 +69,12 @@ $userClass = new User;
                 }else if($status=="INVALID_PASSWORD"){
                     echo "<p class='redtext'>Invalid username/password.";
                 }else if($status=="OK"){
+                    $user = $userClass->getUserFromUsername($conn, $_POST['username']);
+                    if($user['new']==1){
+                        $userClass->update($conn, "new", 0, $user['id'], true);
+                        header("Location: /oobe");
+                        exit;
+                    }
                     header("Location: /");
                     exit;
                 }
