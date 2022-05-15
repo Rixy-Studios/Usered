@@ -1,7 +1,9 @@
 <?php
 class Database{
     public function init_session(){
-        session_start();
+        session_start([
+            "cookie_lifetime" => time() + (10 * 365 * 24 * 60 * 60),
+        ]);
     }
     public function connect(){
         //swaggish
