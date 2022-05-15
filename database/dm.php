@@ -21,7 +21,8 @@ class Dm{
         $query->execute([
             "target" => $target
         ]);
-        return $query->fetch();
+        $result = $query->fetch();
+        return $result[0];
     }
     public function removeNotRead($conn, $id){
         $query = $conn->prepare("UPDATE `dm` SET `new`=0 WHERE `id`=:id");

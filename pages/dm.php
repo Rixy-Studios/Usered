@@ -52,7 +52,7 @@ require_once "elements/header.php";
             foreach($all as $dm){
                 $dmuser = $userClass->getUserFromID($conn, $dm['source']);
                 $tmstp = $miscClass->getTimestampFromDate($conn, $dm['timestamp']);
-                if($dm['new']==1){
+                if($dm['new']==1 && $dm['target']==$user['id']){
                     $dmClass->removeNotRead($conn, $dm['id']);
                 }
                 if($dmuser['id']==$user['id']){?>

@@ -110,7 +110,7 @@ if($if_ban){
       <div class="button-container-idk">
         <a class="g-button g-button-submit" href="/profile/<?= $user['id'] ?>">Profile</a>
         <a class="g-button g-button-submit" href="/blog_post/create">Create a blog post</a>
-        <a class="g-button g-button-submit" href="/conversation">Conversations (<?= $dmClass->getDmNotRead($conn, $user['id'])[0];?>)</a>
+        <a class="g-button g-button-submit" href="/conversation">Conversations (<?= $dmClass->getDmNotRead($conn, $user['id']);?>)</a>
         <? if($user['perms']==1){ ?><a class="g-button g-button-submit" href="/admin">Admin panel</a><? } ?>
       </div>
       <span class="signup-button"><a id="link-signup" class="g-button g-button-red" href="/logout">Logout</a></span>
